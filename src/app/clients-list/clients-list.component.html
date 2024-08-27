@@ -1,0 +1,92 @@
+<div class="list-header">
+  <div class="list-header-title">Clients list</div>
+  <div>
+    <button mat-raised-button (click)="filtersActive = !filtersActive">
+      Filters
+    </button>
+    <button mat-raised-button (click)="addData()">
+      Add client
+    </button>
+  </div>
+</div>
+@if (filtersActive) {
+<div class="list-header ">
+  <div class="list-header-title ">Filters</div>
+  <form [formGroup]="filterForm">
+    <div class="filters">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Last name</mat-label>
+        <input matInput formControlName="lastName">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Sex</mat-label>
+        <mat-select formControlName="sex">
+          <mat-option value="m">Male</mat-option>
+          <mat-option value="f">Female</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div class="filters">
+    <button mat-raised-button (click)="applyFilters()">
+      Apply filters
+    </button>
+    <button mat-raised-button (click)="clearFilters()">
+      Clear filters
+    </button>
+  </div>
+</div>
+}
+
+
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{element.name}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef>Last Name</th>
+    <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="sex">
+    <th mat-header-cell *matHeaderCellDef>Gender</th>
+    <td mat-cell *matCellDef="let element">{{element.sex}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="pin">
+    <th mat-header-cell *matHeaderCellDef>Pin</th>
+    <td mat-cell *matCellDef="let element">{{element.pin}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button (click)="openDetails(element.id)">
+        <img src="assets/icons/eye.png">
+      </button>
+      <button mat-icon-button (click)="editClient(element.id)">
+        <img src="assets/icons/edit.svg">
+      </button>
+      <button mat-icon-button (click)="deleteClient(element.id)">
+        <img src="assets/icons/trash.png">
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+</table>
+
+<mat-paginator aria-label="Select page" [length]="fullLength" [pageSize]="pageSize" [pageIndex]="pageIndex"
+  [pageSizeOptions]="[5, 10, 25, 100]" (page)="handlePageEvent($event)">
+</mat-paginator>

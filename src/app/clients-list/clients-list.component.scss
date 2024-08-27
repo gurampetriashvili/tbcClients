@@ -1,0 +1,17 @@
+.list-header {
+    background-color: #292929;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    &-title {
+        color: #ffffff;
+    }
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+}
